@@ -73,7 +73,7 @@ const Polynomial Polynomial::Subtract(const Polynomial& rhs)const{  // Subtracti
 }
 const Polynomial Polynomial::Minus()const{  // Unary Minus aka sign flip
 	Polynomial retVal(this->_degree);
-    for(size_t i = 0; i < this->_degree; i++){
+    for(size_t i = 0; i <= this->_degree; i++){
     	retVal._coefficients[i] = -1 * this->_coefficients[i];
     }
 	return retVal;
@@ -112,10 +112,14 @@ float Polynomial::Integrate(float start, float end)const{  // Integration of a s
     return 0.0;
 }
 const Polynomial& Polynomial::operator=(const Polynomial& rhs){  // Copy Assignment Operator
-    if(this != &rhs){
+	if(this != &rhs){
     	delete[] _coefficients;
-    	this->_coefficients = rhs._coefficients;
-    	this->_degree = rhs._degree;
+        _degree = rhs._degree;
+       	_coefficients = new float[_degree+1];
+        for(size_t i = 0; i <= _degree; i++){
+        	_coefficients[i] = rhs._coefficients[i];
+        }
+
     }
     return *this;
 }
